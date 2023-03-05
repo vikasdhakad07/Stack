@@ -1,0 +1,35 @@
+Method 01: Implement Stack using Linked List
+
+class MyStack 
+{
+ 
+    StackNode top;
+    
+    //Function to push an integer into the stack.
+    void push(int a) 
+    {
+        // Add your code here
+        StackNode sn=new StackNode(a);
+        if(top==sn){
+            top=sn;
+        }else{
+            sn.next=top;
+            top=sn;
+        }
+    }
+    
+    //Function to remove an item from top of the stack.
+    int pop() 
+    {
+        // Add your code here
+        int data=0;
+        if(top==null){
+            return -1;
+        }
+        else{
+             data = top.data;
+            top = top.next;
+        }
+        return data;
+    }
+}

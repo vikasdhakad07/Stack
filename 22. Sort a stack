@@ -1,0 +1,19 @@
+Method 01: Sort a stack
+
+
+class GfG{
+	public Stack<Integer> sort(Stack<Integer> s)
+	{
+		//add code here.
+		java.util.ArrayList<Integer> al=new java.util.ArrayList<Integer>();
+		while(!s.isEmpty()){
+		    al.add(s.pop());
+		}
+		
+		java.util.Collections.sort(al);
+		for(int i=0;i<al.size();i++){
+		    s.push(al.get(i));
+		}
+		return s;
+	}
+}

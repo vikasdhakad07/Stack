@@ -1,0 +1,38 @@
+Method 01: Valid Substring
+
+
+class Solution {
+    static int findMaxLen(String S) {
+        // code here
+        if(S==null||S.length()<2){
+            return 0;
+        }
+        
+        Stack<Integer> st=new Stack<>();
+        int n=S.length();
+       
+        for(int i=0;i<n;i++){
+            
+            if(S.charAt(i)=='('){
+                st.push(i);
+            }
+            else {
+                if(!st.isEmpty()&&S.charAt(st.peek())=='('){
+                    st.pop();
+            }
+            else{
+            st.push(i);
+            }
+        }
+    }
+    
+    int max=0;
+    int end=S.length();
+    while(!st.isEmpty()){
+        int ele=st.pop();
+        max=Math.max(max, end-ele-1);
+        end=ele;
+    }
+    return Math.max(end, max);
+    }
+};

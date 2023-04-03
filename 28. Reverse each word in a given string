@@ -1,0 +1,30 @@
+Method 01: Reverse each word in a given string
+
+
+class Solution
+{
+   
+    String reverseWords(String S)
+    {
+        // your code here
+        Stack<Character> st=new Stack<>();
+        StringBuilder sb=new StringBuilder();
+        
+        for(int i=0;i<S.length();i++){
+            if(S.charAt(i)!='.'){
+                st.push(S.charAt(i));
+            }
+            else{
+                while(!st.isEmpty()){
+                    sb.append(st.pop());
+                }
+                sb.append('.');
+            }
+        }
+        
+        while(!st.isEmpty()){
+            sb.append(st.pop());
+        }
+        return sb.toString();
+    }
+}

@@ -6,32 +6,51 @@ class Solution
     //Function to find largest rectangular area possible in a given histogram.
     public static long getMaxArea(long hist[], long n) 
     {
-        // your code here
-        Stack<Integer> st=new Stack<>();
-        long lseL[]=new long[(int)n];
-        long lseR[]=new long[(int)n];
-        
-        for(int i=0;i<(int)n;i++){
-            while(!st.isEmpty()&&hist[i]<=hist[st.peek()]){
+        if(n ==1){
+            return hist[0];
+        }
+        int rb[] = new int[hist.length];
+        Stack<Integer> st = new Stack<>();
+        st.push(hist.length-1);
+        rb[hist.length-1] = hist.length;
+        for(int i = hist.length-2 ; i>=0 ;i--){
+            while(st.size()>0 && hist[i] <= hist[st.peek()]){
                 st.pop();
             }
-            lseL[i]=st.isEmpty() ? -1:st.peek();
+            if(st.size()==0){
+                rb[i]= hist.length;
+            }else{
+                rb[i] = st.peek();
+            }
             st.push(i);
         }
         
-        while(!st.isEmpty()) st.pop();
-        
-        for(int i=(int)(n-1);i>=0;i--){
-            while(!st.isEmpty()&&hist[i]<=hist[st.peek()]){
+        int lb[] = new int[hist.length];
+        st = new Stack<>();
+        st.push(0);
+        lb[0] =-1 ;
+        for(int i = 1;i<hist.length;i++){
+            while(st.size()>0 && hist[i] <= hist[st.peek()]){
                 st.pop();
             }
-            lseR[i]=st.isEmpty() ? (int)n:st.peek();
+            if(st.size()==0){
+                lb[i]= -1;
+            }else{
+                lb[i] = st.peek();
+            }
             st.push(i);
         }
         
-        long maxArea=0;
-        for(int i=0;i<(int)n;i++){
-            maxArea=Math.max(maxArea,hist[i]*(lseR[i]-lseL[i]-1));
+        long maxArea =0;
+       
+        for(int i =0;i<hist.length;i++){
+            long  w = rb[i] -lb[i]-1;
+            long  area = hist[i]*w;
+            
+           
+            if(maxArea < area){
+                maxArea = area;
+            }
         }
         return maxArea;
     }

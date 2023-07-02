@@ -1,0 +1,68 @@
+Method 01: Using Array(Brute force)
+
+
+class Solution{
+    String longestPalindrome(String S){
+        // code here
+        String ans="";
+        int maxlen=0;
+        for(int i=0;i<S.length();i++){
+            String sub="";
+            for(int j=i;j<S.length();j++){
+                sub+=S.charAt(j);
+                if(isPal(sub)){
+                    if(sub.length()>maxlen){
+                        ans=sub;
+                        maxlen=sub.length();
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+    
+    boolean isPal(String s){
+        int i=0;
+        int j=s.length()-1;
+        while(i<=j){
+            if(s.charAt(i)!=s.charAt(j)){
+               return false;
+            }
+             i++;
+             j--;
+        }
+        return true;
+    }
+}
+
+
+Method 02: Using Dp
+
+
+class Solution {
+    public String longestPalindrome(String S) {
+          int N=S.length();
+        boolean dp[][]=new boolean[N][N];
+        String ans="";
+        int max=-1;
+        for(int g=0;g<N;g++){
+            for(int i=0,j=g;j<N;i++,j++){
+                if(g==0){
+                    dp[i][j]=true;
+                }
+                else if(g==1){
+                    if(S.charAt(i)==S.charAt(j)) dp[i][j]=true;
+                }
+                else{
+                    if(S.charAt(i)==S.charAt(j)) dp[i][j]=dp[i+1][j-1];
+                }
+                
+                if(dp[i][j]&&max<g){
+                    max=g;
+                    ans=S.substring(i,j+1);
+                }
+            }
+        }
+        return ans;
+    }
+}
